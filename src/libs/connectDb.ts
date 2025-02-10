@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const mongo_uri = process.env.MONGO_URI;
+const mongo_uri = process.env.MONGO_URI!;
 
 if (!mongo_uri) {
   throw new Error("MongoDB connection URI not found");
@@ -22,14 +22,14 @@ export const connectDb = async () => {
       maxPoolSize: 9,
     };
 
-    cached_connection.promise = mongoose
-      .connect(mongo_uri, opts)
-      .then(() => mongoose.connection);
+    cached_connection.promise = mongoose.connect(mongo_uri, opts).then(() => {
+      return mongoose.connection;
+    });
   }
   try {
     cached_connection.connection = await cached_connection.promise;
-  } catch (error) {
-    throw new Error("Error while connectiong to database");
+  } catch (error: any) {
+    throw new Error("Error while connectiong to database : ", error);
   }
   return cached_connection.connection;
 };

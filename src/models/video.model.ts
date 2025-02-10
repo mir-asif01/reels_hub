@@ -35,4 +35,4 @@ const videoSchema = new Schema<IVideo>(
   { timestamps: true }
 );
 
-export const Video = models?.Video || model<IVideo>("video", videoSchema);
+export const Video = models?.Video || model<IVideo>("Video", videoSchema);

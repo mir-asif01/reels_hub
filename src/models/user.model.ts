@@ -23,4 +23,4 @@ userSchema.pre("save", async function () {
   }
 });
 
-export const User = models?.User || model<IUser>("user", userSchema);
+export const User = models?.User || model<IUser>("User", userSchema);
