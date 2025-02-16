@@ -1,6 +1,6 @@
 import mongoose, { model, models, Schema } from "mongoose";
 
-interface IVideo {
+export interface IVideo {
   _id?: mongoose.Types.ObjectId;
   title: string;
   description: string;
@@ -10,7 +10,7 @@ interface IVideo {
   tranformations?: {
     height: number;
     width: number;
-    quality: number;
+    quality: number | undefined;
   };
 }
 
