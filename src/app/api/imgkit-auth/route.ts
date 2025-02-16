@@ -9,8 +9,8 @@ const imagekit = new ImageKit({
 
 export async function GET() {
   try {
-    return NextResponse.json(imagekit.getAuthenticationParameters());
-    // return NextResponse.json({ message: "imgkit-auth route" });
+    const authenticatedParameters = imagekit.getAuthenticationParameters();
+    return NextResponse.json(authenticatedParameters);
   } catch (error) {
     console.log("Error while connecting imgkit : ", error);
     return NextResponse.json(
