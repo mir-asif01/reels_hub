@@ -1,7 +1,11 @@
-export default function LoginPage(){
-    return (<>
-        <section>
-            <h1>welcome to login page</h1>
-        </section>
-    </>)    
+import LoginForm from "@/components/LoginForm";
+
+export default function LoginPage() {
+  return (
+    <>
+      <section className="my-10">
+        <LoginForm />
+      </section>
+    </>
+  );
 }

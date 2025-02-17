@@ -42,9 +42,9 @@ const Header = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300${
         isScrolled
-          ? "bg-white/80 backdrop-blur-md dark:bg-gray-900/80 shadow-md"
+          ? "bg-white/80 backdrop-blur-md dark:bg-gray-900/80 shadow-sm border-b border-opacity-55 "
           : "bg-transparent"
       }`}
     >
@@ -56,10 +56,6 @@ const Header = () => {
           </Link>
 
           <nav className="flex items-center space-x-4">
-            <Button variant="ghost" asChild>
-              <Link href="/watch">Watch</Link>
-            </Button>
-
             {session?.user ? (
               <>
                 <DropdownMenu>
@@ -71,6 +67,11 @@ const Header = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
                     <DropdownMenuItem>Profile</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Button variant="ghost" asChild>
+                        <Link href={"/"}>Watch</Link>
+                      </Button>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>Settings</DropdownMenuItem>
                     <DropdownMenuItem onClick={() => setIsAuthenticated(false)}>
                       Logout
