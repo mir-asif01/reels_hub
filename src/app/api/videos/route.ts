@@ -1,5 +1,5 @@
-import { connectDb } from "@/libs/connectDb";
-import { authOptions } from "@/libs/next-auth-options";
+import { connectDb } from "@/lib/connectDb";
+import { authOptions } from "@/lib/next-auth-options";
 import { IVideo, Video } from "@/models/video.model";
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";

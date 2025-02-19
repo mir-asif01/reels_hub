@@ -14,14 +14,19 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { apiClient } from "@/ApiClient/apiClient";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function RegisterForm() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
@@ -34,8 +39,20 @@ export default function RegisterForm() {
       setError("Passwords do not match");
       return;
     }
-
-    // Here you would typically call an API to register the user
+    try {
+      const res: any = await apiClient.register({ email, password });
+      if (!res?.success) {
+        return toast.error("Registration not successful");
+      }
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      toast.success("Registration successful");
+      router.push("/login");
+    } catch (err: any) {
+      toast.error("Error while registering user", err);
+    }
+    console.log(email, password);
     console.log("Registration submitted", { email, password });
   };
 
