@@ -1,4 +1,5 @@
 import { IUser } from "@/models/user.model";
+import { IVideo } from "@/models/video.model";
 
 type fetchOptions = {
   method?: "GET" | "POST" | "PATCH" | "DELETE";
@@ -37,6 +38,17 @@ class ApiClient {
       method: "POST",
       body: user,
     });
+  }
+
+  async createVideo(video: Omit<IVideo, "_id">) {
+    return this.customFetch("/upload", {
+      method: "POST",
+      body: video,
+    });
+  }
+
+  async getVideos() {
+    return this.customFetch("/video");
   }
 }
 

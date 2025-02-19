@@ -3,15 +3,8 @@
 import { signOut, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Mountain } from "lucide-react";
+import { Mountain, User2 } from "lucide-react";
 import Button from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -25,7 +18,6 @@ const Header = () => {
   };
 
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(false); // This should be replaced with your actual auth logic
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,28 +49,21 @@ const Header = () => {
 
           <nav className="flex items-center space-x-4">
             {session?.user ? (
-              <>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Avatar>
-                      <AvatarImage src="/placeholder.svg" alt="User" />
-                      <AvatarFallback>U</AvatarFallback>
-                    </Avatar>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Profile</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Button variant="ghost" asChild>
-                        <Link href={"/"}>Watch</Link>
-                      </Button>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setIsAuthenticated(false)}>
-                      Logout
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
+              <div className="cursor-pointer flex justify-between items-center gap-10">
+                <button>
+                  <Link href={"/videos"}>Watch</Link>
+                </button>
+                <button>
+                  <Link href={"/upload"}>Upload</Link>
+                </button>
+                <Button onClick={handleLogOut}>Log Out</Button>
+                <Link
+                  href={"/dashboard"}
+                  className="bg-gray-100 p-2 rounded-full"
+                >
+                  <User2 />
+                </Link>
+              </div>
             ) : (
               <>
                 <Button variant="ghost" asChild>
