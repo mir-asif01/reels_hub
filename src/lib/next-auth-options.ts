@@ -7,7 +7,7 @@ import bcrypt from "bcryptjs";
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: {
           label: "Email",
@@ -20,10 +20,7 @@ export const authOptions: NextAuthOptions = {
           placeholder: "password",
         },
       },
-      async authorize(credentials) {
-        if (!credentials?.email || credentials?.password) {
-          throw new Error("Missing email or password");
-        }
+      async authorize(credentials: any) {
         try {
           await connectDb();
           const user = await User.findOne({ email: credentials?.email });

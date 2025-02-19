@@ -14,29 +14,41 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function LoginForm() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!email || !password || !confirmPassword) {
+    if (!email || !password) {
       setError("All fields are required");
       return;
     }
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
+    try {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      if (res?.ok) {
+        toast.success("Login successfull");
+        router.push("/videos");
+      }
+      console.log(res);
+    } catch (err: any) {
+      toast.error("Error while login", err);
     }
-
-    // Here you would typically call an API to register the user
-    console.log("Registration submitted", { email, password });
+    console.log({ email, password });
   };
 
   return (
