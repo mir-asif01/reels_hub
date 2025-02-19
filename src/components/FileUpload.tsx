@@ -8,13 +8,13 @@ import { useState } from "react";
 type FileUploadProps = {
   onSuccess: (res: IKUploadResponse) => void;
   onProgress?: (progress: number) => void;
-  fileType?: "image" | "video";
+  fileType?: "video";
 };
 
 export default function FileUpload({
   onSuccess,
   onProgress,
-  fileType = "image",
+  fileType,
 }: FileUploadProps) {
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
@@ -43,6 +43,7 @@ export default function FileUpload({
   };
   const validateFile = (file: File) => {
     if (fileType === "video") {
+      console.log("video");
       if (!file?.type?.startsWith("video/")) {
         setError("Please upload a valid video file");
         return false;
@@ -66,9 +67,9 @@ export default function FileUpload({
   };
 
   return (
-    <div className="my-2">
+    <div className="my-2 border border-gray-300 rounded-md p-2">
       <IKUpload
-        fileName={fileType === "video" ? "video" : "image"}
+        fileName={fileType === "video" ? "image" : "video"}
         isPrivateFile={false}
         useUniqueFileName={true}
         accept={fileType === "video" ? "video/*" : "image/*"}
@@ -83,7 +84,7 @@ export default function FileUpload({
       {uploading && (
         <div className="flex items-center gap-2 text-sm text-primary">
           <Loader2 className="w-4 h-4 animate-spin" />
-          <span>Uploading...</span>
+          <span className="text-green-500">Uploading...</span>
         </div>
       )}
 

@@ -41,7 +41,7 @@ class ApiClient {
   }
 
   async createVideo(video: Omit<IVideo, "_id">) {
-    return this.customFetch("/upload", {
+    return this.customFetch("/videos", {
       method: "POST",
       body: video,
     });
