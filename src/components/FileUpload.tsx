@@ -41,40 +41,38 @@ export default function FileUpload({
       onProgress(Math.round(percentCompleted));
     }
   };
-  const validateFile = (file: File) => {
-    if (fileType === "video") {
-      console.log("video");
-      if (!file?.type?.startsWith("video/")) {
-        setError("Please upload a valid video file");
-        return false;
-      }
-      if (file?.size > 100 * 1024 * 1024) {
-        setError("Video size must be less than 100MB");
-        return false;
-      }
-    } else {
-      const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
-      if (!validImageTypes.includes(file?.type)) {
-        setError("Please upload a valid image file(jpeg, png and webp)");
-        return false;
-      }
-      if (file.size > 5 * 1024 * 1024) {
-        setError("Image size must be less than 5MB");
-        return false;
-      }
-    }
-    return true;
-  };
+  // const validateFile = (file: File) => {
+  //   if (fileType === "video") {
+  //     console.log("video");
+  //     if (!file?.type?.startsWith("video/")) {
+  //       setError("Please upload a valid video file");
+  //       return false;
+  //     }
+  //     if (file?.size > 100 * 1024 * 1024) {
+  //       setError("Video size must be less than 100MB");
+  //       return false;
+  //     }
+  //   } else {
+  //     const validImageTypes = ["image/jpeg", "image/png", "image/webp"];
+  //     if (!validImageTypes.includes(file?.type)) {
+  //       setError("Please upload a valid image file(jpeg, png and webp)");
+  //       return false;
+  //     }
+  //     if (file.size > 5 * 1024 * 1024) {
+  //       setError("Image size must be less than 5MB");
+  //       return false;
+  //     }
+  //   }
+  //   return true;
+  // };
 
   return (
     <div className="my-2 border border-gray-300 rounded-md p-2">
       <IKUpload
-        fileName={fileType === "video" ? "image" : "video"}
+        fileName={"image"}
         isPrivateFile={false}
         useUniqueFileName={true}
-        accept={fileType === "video" ? "video/*" : "image/*"}
-        validateFile={validateFile}
-        folder={fileType === "video" ? "/videos" : "/images"}
+        folder={"/images"}
         onError={handleError}
         onSuccess={handleSuccess}
         onUploadProgress={handleProgress}

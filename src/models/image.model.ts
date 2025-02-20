@@ -1,11 +1,11 @@
 import mongoose, { model, models, Schema } from "mongoose";
 
-export interface IVideo {
+export interface TImage {
   _id?: mongoose.Types.ObjectId;
   title: string;
   description: string;
   thumbnailUrl: string;
-  videoUrl: string;
+  imageUrl: string;
   controls?: boolean;
   tranformations?: {
     height: number;
@@ -19,12 +19,12 @@ const VIDEO_DIMENSION = {
   width: 1080,
 } as const;
 
-const videoSchema = new Schema<IVideo>(
+const videoSchema = new Schema<TImage>(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
     thumbnailUrl: { type: String, required: true },
-    videoUrl: { type: String, required: true },
+    imageUrl: { type: String, required: true },
     controls: { type: Boolean, default: true },
     tranformations: {
       height: { type: Number, default: VIDEO_DIMENSION.height },
@@ -35,4 +35,4 @@ const videoSchema = new Schema<IVideo>(
   { timestamps: true }
 );
 
-export const Video = models?.Video || model<IVideo>("Video", videoSchema);
+export const Image = models?.Image || model<TImage>("Image", videoSchema);

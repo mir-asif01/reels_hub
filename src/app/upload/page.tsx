@@ -10,36 +10,38 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 export default function UploadPage() {
-  const [video, setVideo] = useState({
+  const [image, setImage] = useState({
     title: "",
     description: "",
-    videoUrl: "",
+    imageUrl: "",
     thumbnailUrl: "",
   });
 
   const handleFileUploadSuccess = (res: IKUploadResponse) => {
+    console.log(res);
     if (res?.url) {
-      setVideo({
-        ...video,
-        videoUrl: res?.url,
+      setImage({
+        ...image,
+        imageUrl: res?.url,
       });
     }
     if (res?.thumbnailUrl) {
-      setVideo({
-        ...video,
+      setImage({
+        ...image,
         thumbnailUrl: res?.thumbnailUrl,
       });
     }
   };
 
   const handleUploadVideo = async () => {
+    console.log(image);
     try {
-      const res: any = await apiClient.createVideo(video);
+      const res: any = await apiClient.createImage(image);
       if (res?.success) {
-        setVideo({
+        setImage({
           title: "",
           description: "",
-          videoUrl: "",
+          imageUrl: "",
           thumbnailUrl: "",
         });
         toast.success("Video saved successfully");
@@ -62,10 +64,10 @@ export default function UploadPage() {
             <Label htmlFor="title">Title</Label>
             <Input
               id="title"
-              value={video?.title}
+              value={image?.title}
               onChange={(e) =>
-                setVideo({
-                  ...video,
+                setImage({
+                  ...image,
                   title: e.target.value,
                 })
               }
@@ -76,10 +78,10 @@ export default function UploadPage() {
             <Label htmlFor="description">Description</Label>
             <Textarea
               id="description"
-              value={video?.description}
+              value={image?.description}
               onChange={(e) =>
-                setVideo({
-                  ...video,
+                setImage({
+                  ...image,
                   description: e.target.value,
                 })
               }

@@ -51,7 +51,7 @@ const Header = () => {
             {session?.user ? (
               <div className="cursor-pointer flex justify-between items-center gap-10">
                 <button>
-                  <Link href={"/videos"}>Watch</Link>
+                  <Link href={"/images"}>Explore</Link>
                 </button>
                 <button>
                   <Link href={"/upload"}>Upload</Link>
