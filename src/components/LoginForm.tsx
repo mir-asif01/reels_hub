@@ -42,7 +42,7 @@ export default function LoginForm() {
       });
       if (res?.ok) {
         toast.success("Login successfull");
-        router.push("/videos");
+        router.push("/images");
       }
       console.log(res);
     } catch (err: any) {

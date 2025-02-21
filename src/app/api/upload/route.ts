@@ -17,13 +17,12 @@ export async function POST(req: NextRequest) {
       );
     }
     await connectDb();
-    const vid: TImage = await req.json();
-    console.log(vid);
+    const image: TImage = await req.json();
     if (
-      !vid?.title ||
-      !vid?.description ||
-      !vid?.thumbnailUrl ||
-      !vid?.imageUrl
+      !image?.title ||
+      !image?.description ||
+      !image?.thumbnailUrl ||
+      !image?.imageUrl
     ) {
       return NextResponse.json(
         { success: false, message: "Missing video file" },
@@ -31,12 +30,12 @@ export async function POST(req: NextRequest) {
       );
     }
     const imageData: TImage = {
-      ...vid,
-      controls: vid?.controls && true,
+      ...image,
+      controls: image?.controls && true,
       tranformations: {
         height: 1920,
         width: 1080,
-        quality: vid?.tranformations?.quality && 100,
+        quality: image?.tranformations?.quality && 100,
       },
     };
 

@@ -3,7 +3,7 @@
 import { IKUpload } from "imagekitio-next";
 import { IKUploadResponse } from "imagekitio-next/dist/types/components/IKUpload/props";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 type FileUploadProps = {
   onSuccess: (res: IKUploadResponse) => void;
@@ -18,6 +18,7 @@ export default function FileUpload({
 }: FileUploadProps) {
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const imageRef = useRef<any>("");
 
   const handleError = (err: { message: string }) => {
     setError(err?.message);
@@ -27,6 +28,7 @@ export default function FileUpload({
   const handleSuccess = (res: IKUploadResponse) => {
     setUploading(false);
     setError(null);
+    imageRef.current.value = "";
     onSuccess(res);
   };
 
@@ -77,6 +79,7 @@ export default function FileUpload({
         onSuccess={handleSuccess}
         onUploadProgress={handleProgress}
         onUploadStart={handleStartUpload}
+        ref={imageRef}
       />
 
       {uploading && (

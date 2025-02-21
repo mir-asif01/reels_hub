@@ -18,23 +18,21 @@ export default function UploadPage() {
   });
 
   const handleFileUploadSuccess = (res: IKUploadResponse) => {
-    console.log(res);
     if (res?.url) {
-      setImage({
-        ...image,
-        imageUrl: res?.url,
-      });
+      setImage((prev) => ({
+        ...prev,
+        imageUrl: res.url,
+      }));
     }
     if (res?.thumbnailUrl) {
-      setImage({
-        ...image,
-        thumbnailUrl: res?.thumbnailUrl,
-      });
+      setImage((prev) => ({
+        ...prev,
+        thumbnailUrl: res.thumbnailUrl,
+      }));
     }
   };
 
   const handleUploadVideo = async () => {
-    console.log(image);
     try {
       const res: any = await apiClient.createImage(image);
       if (res?.success) {
@@ -44,10 +42,10 @@ export default function UploadPage() {
           imageUrl: "",
           thumbnailUrl: "",
         });
-        toast.success("Video saved successfully");
+        toast.success("Image saved successfully");
       }
     } catch (error) {
-      toast.error("Error while saving video information");
+      toast.error("Error while saving image information");
     }
   };
 
